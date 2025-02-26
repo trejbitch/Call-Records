@@ -24,8 +24,7 @@ interface CallRecordProps {
 }
 
 export function CallRecord({ name, callNumber, date, duration, avatar, scores }: CallRecordProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [isAnimating, setIsAnimating] = useState(false)
+const [isExpanded, setIsExpanded] = useState(false)
 
   const categories = [
     { title: "Engagement", score: scores.Engagement },
@@ -42,17 +41,12 @@ export function CallRecord({ name, callNumber, date, duration, avatar, scores }:
   )
 
   return (
-    <div
-      className={cn(
-        "rounded-[30px] bg-white px-4 pt-2 pb-4 shadow-[0_4px_20px_rgb(0,0,0,0.08)] border border-gray-100 my-2",
-        isExpanded ? "pb-4" : "pb-3",
-      )}
-    >
+    <div className="w-full bg-white border border-[#ddd] rounded-[30px] p-4">
       {/* Call Header */}
       <div className="grid grid-cols-3 items-center gap-2 px-3 pt-1 pb-2 rounded-[20px] bg-white">
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10 ring-2 ring-purple-100">
-            <AvatarImage src={avatar} />
+          <Avatar className="rounded-[10px] bg-gray-100 border border-[#ddd]">
+            <AvatarImage src={avatar} alt={name} />
             <AvatarFallback>{name[0]}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col justify-between h-full py-0.5">
@@ -92,15 +86,10 @@ export function CallRecord({ name, callNumber, date, duration, avatar, scores }:
       {/* Call Details Button */}
       <div className="flex items-center justify-center mt-2">
         <span
-          onClick={() => {
-            setIsAnimating(true)
-            setIsExpanded(!isExpanded)
-            setTimeout(() => setIsAnimating(false), 300)
-          }}
-          className={cn(
-            "text-black hover:text-[#5b06be] cursor-pointer text-sm transition-colors duration-300",
-            `${isAnimating ? "animate-pulse" : ""}`,
-          )}
+onClick={() => {
+  setIsExpanded(!isExpanded)
+}}
+className="text-black hover:text-[#5b06be] cursor-pointer text-sm transition-colors duration-300"
         >
           {isExpanded ? "Hide Details" : "Call Details"}
           {isExpanded ? (
@@ -122,15 +111,10 @@ export function CallRecord({ name, callNumber, date, duration, avatar, scores }:
       {isExpanded && (
         <div className="flex items-center justify-center mt-4">
           <span
-            onClick={() => {
-              setIsAnimating(true)
-              setIsExpanded(false)
-              setTimeout(() => setIsAnimating(false), 300)
-            }}
-            className={cn(
-              "text-black hover:text-[#5b06be] cursor-pointer text-sm transition-colors duration-300",
-              `${isAnimating ? "animate-pulse" : ""}`,
-            )}
+onClick={() => {
+  setIsExpanded(false)
+}}
+className="text-black hover:text-[#5b06be] cursor-pointer text-sm transition-colors duration-300"
           >
             Hide Details
             <ChevronUp className="inline-block ml-2 h-4 w-4" />
