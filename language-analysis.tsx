@@ -5,7 +5,6 @@ src/components/ui/language-analysis.tsx
 
 
 
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle2, ChevronDown, ChevronUp } from "lucide-react"
 import { useState } from "react"
@@ -24,7 +23,7 @@ export function LanguageAnalysis() {
       <CardContent className="pt-2 bg-white rounded-b-[20px] px-6">
         <div className="space-y-6">
           {/* Talk Ratio Section */}
-          <div className="bg-white rounded-[20px] p-6 relative z-10 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-white border border-[#dddddd] rounded-[20px] p-6 relative z-10">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[15px] font-bold text-[#5b06be]">Talk Ratio</h3>
               <div className="flex items-center gap-2">
@@ -120,7 +119,7 @@ export function LanguageAnalysis() {
           </div>
 
           {/* Most Used Phrases Section */}
-          <div className="bg-white rounded-[20px] p-4 relative z-10 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-white border border-[#dddddd] rounded-[20px] p-4 relative z-10">
             <h3 className="text-[15px] font-bold text-[#5b06be] mb-3">Most Used Phrases</h3>
             <div className="flex flex-wrap gap-2">
               {mostUsedPhrases.map((phrase) => (
@@ -135,11 +134,11 @@ export function LanguageAnalysis() {
           </div>
 
           {/* Speaking Pace Section */}
-          <div className="bg-white rounded-[20px] p-4 relative z-10 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-[15px] font-bold text-[#5b06be]">Speaking Pace</h3>
-              <span className="text-sm font-medium text-green-600 animate-pulse">Optimal</span>
-            </div>
+          <div className="bg-white border border-[#dddddd] rounded-[20px] p-4 relative z-10">
+<div className="flex items-center justify-between mb-3">
+  <h3 className="text-[15px] font-bold text-[#5b06be]">Speaking Pace</h3>
+  <span className="text-sm font-bold text-green-700">Optimal</span> {/* Removed animate-pulse class */}
+</div>
             <div className="relative pt-1">
               <div className="flex mb-2 items-center justify-between">
                 <div>
@@ -170,12 +169,12 @@ export function LanguageAnalysis() {
           </div>
 
           {/* Sentence Length Section */}
-          <div className="bg-white rounded-[20px] p-4 relative z-10 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-white border border-[#dddddd] rounded-[20px] p-4 relative z-10">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-[15px] font-bold text-[#5b06be]">Sentence Length</h3>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span className="text-sm font-medium text-green-600">Good</span>
+                <span className="text-sm font-bold text-green-600">Good</span>
               </div>
             </div>
             <div className="space-y-2">
@@ -195,10 +194,10 @@ export function LanguageAnalysis() {
           </div>
 
           {/* Filler Words Section */}
-          <div className="bg-white rounded-[20px] p-4 relative z-10 shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-white border border-[#dddddd] rounded-[20px] p-4 relative z-10">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-[15px] font-bold text-[#5b06be]">Filler Words</h3>
-              <span className="text-sm font-medium text-green-600">Below target (5%)</span>
+              <span className="text-sm font-bold text-green-600">Below target (5%)</span>
             </div>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-3xl font-bold text-purple-600 transition-all duration-300 hover:scale-110 cursor-pointer">
