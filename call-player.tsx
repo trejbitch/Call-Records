@@ -59,7 +59,7 @@ export function CallPlayer() {
   }
 
   return (
-    <div className="bg-white rounded-[20px] shadow-lg relative z-10 p-6">
+    <div className="bg-white rounded-[20px] border border-[#dddddd] relative z-10 p-6">
       <div className="space-y-2">
         {" "}
         {/* Adjusted spacing */}
