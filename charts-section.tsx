@@ -112,14 +112,14 @@ export function ChartsSection({ calls }: { calls: any[] }) {
   const chartData = processCallHistory(calls)
 
   return (
-    <div
-      className={`space-y-4 w-full mx-auto bg-white rounded-[30px] px-6 pt-4 ${
-        isExpanded ? "pb-4 mb-8" : "pb-2"
-      } shadow-[0_0_30px_rgba(0,0,0,0.1)]`}
-    >
+<div
+  className={`space-y-4 w-full mx-auto bg-white rounded-[30px] px-4 pt-4 ${
+    isExpanded ? "pb-4 mb-8" : "pb-2"
+  } border border-[#ddd]`}
+>
       <div className="space-y-1">
-        <h2 className="text-2xl font-bold" style={{ color: "#5b06be" }}>Performance Analytics</h2>
-        <p className="text-base text-black">
+      <h2 className="text-[19px] font-bold tracking-tight" style={{ color: "#5b06be" }}>Performance Analytics</h2>
+      <p className="text-base text-black">
           Analyze your call performance across various metrics. Click to expand and view detailed charts.
         </p>
       </div>
@@ -127,7 +127,7 @@ export function ChartsSection({ calls }: { calls: any[] }) {
       <Button
         variant="outline"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full bg-white justify-center text-black hover:text-black hover:bg-gray-100 rounded-[15px] transition-all duration-300 py-2 px-4"
+        className="w-full bg-white justify-center text-black hover:text-black hover:bg-gray-100 rounded-[15px] transition-all duration-300 py-2 px-4 border border-[#ddd]"
       >
         {isExpanded ? (
           <>
@@ -149,16 +149,16 @@ export function ChartsSection({ calls }: { calls: any[] }) {
         )}
       >
         <div className="overflow-hidden">
-          <div className="space-y-4 pt-0 pb-4 px-2 w-full">
+        <div className="space-y-4 pt-0 pb-4 px-0 w-full">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
               isExpanded && (
                 <div className="space-y-6">
                   {/* Performance Summary */}
-                  <div className="bg-white rounded-[30px] p-6 shadow-lg relative z-10 transition-all duration-300 hover:shadow-xl mb-6">
-                    <h3 className="text-[15px] font-bold text-[#5b06be] mb-4">Performance Summary</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="w-full bg-white rounded-[30px] border border-[#ddd] p-4">
+  <h3 className="text-[15px] font-bold text-[#5b06be] mb-4">Performance Summary</h3>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       {[
                         { label: "Total Calls", value: calls.length },
                         {
@@ -190,7 +190,7 @@ export function ChartsSection({ calls }: { calls: any[] }) {
                       ].map((item, index) => (
                         <div
                           key={item.label}
-                          className="text-center p-3 rounded-[20px] bg-white shadow-lg relative z-10 transition-all duration-300 hover:shadow-xl cursor-pointer"
+                          className="text-center p-3 rounded-[20px] bg-white border border-[#ddd]"
                         >
                           <p className="text-xs font-semibold text-gray-600 mb-1">{item.label}</p>
                           <p
@@ -218,11 +218,17 @@ export function ChartsSection({ calls }: { calls: any[] }) {
                         data={calls}
                         icon={metrics[0].icon}
                         isInteractive={true}
-                        className="shadow-[0_2px_10px_rgba(0,0,0,0.05)]"
-                      />
+                      >
+                        <Button 
+                          variant="ghost" 
+                          className="text-gray-500 border border-solid border-[#ddd] hover:bg-transparent hover:text-gray-700 hover:border-[#ddd]"
+                        >
+                          Details
+                        </Button>
+                      </ChartCard>
                     </div>
                     {/* Rest of the charts in 3x2 grid */}
-                    <div className="grid gap-4 md:grid-cols-3 w-full relative">
+                    <div className="grid gap-4 md:grid-cols-3 w-full">
                       {metrics.slice(1).map((metric) => (
                         <ChartCard
                           key={metric.title}
@@ -231,8 +237,14 @@ export function ChartsSection({ calls }: { calls: any[] }) {
                           data={calls}
                           icon={metric.icon}
                           isInteractive={true}
-                          className="shadow-[0_2px_10px_rgba(0,0,0,0.05)]"
-                        />
+                        >
+                          <Button 
+                            variant="ghost" 
+                            className="text-gray-500 border border-solid border-[#ddd] hover:bg-transparent hover:text-gray-700 hover:border-[#ddd]"
+                          >
+                            Details
+                          </Button>
+                        </ChartCard>
                       ))}
                     </div>
                   </div>
