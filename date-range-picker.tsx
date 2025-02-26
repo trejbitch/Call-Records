@@ -4,10 +4,12 @@ src/components/ui/date-range-picker.tsx
 
 
 
+
+
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
@@ -110,7 +112,12 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" className="gap-2 bg-white rounded-[15px] hover:bg-gray-100">
-          <Calendar className="h-4 w-4" />
+          {/* Using an img tag to display the calendar icon */}
+          <img 
+            src="https://res.cloudinary.com/drkudvyog/image/upload/v1734437402/calendar_icon_2_efgdme.png" 
+            alt="Calendar" 
+            className="w-5 h-5 object-contain"
+          />
           <span className="font-medium">
             {isAllTime
               ? "All time"
@@ -127,6 +134,12 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
             className="w-full rounded-[20px] text-center font-medium bg-white hover:bg-gray-100 border-gray-200" 
             onClick={handleAllTime}
           >
+            {/* Using an img tag for All time button icon */}
+            <img 
+              src="https://res.cloudinary.com/drkudvyog/image/upload/v1734437402/calendar_icon_2_efgdme.png" 
+              alt="Calendar" 
+              className="w-5 h-5 object-contain mr-2"
+            />
             All time
           </Button>
 
