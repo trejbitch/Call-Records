@@ -13,7 +13,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { ChartsSection } from "@/components/ui/charts-section"
 import { CallRecord } from "@/components/ui/call-record"
 import { DateRangePicker } from "@/components/ui/date-range-picker"
-import { EmptyState } from "@/components/ui/empty-state"
 import { isDateInRange } from "@/utils/date"
 
 const calls = [
@@ -184,6 +183,24 @@ const calls = [
   },
 ]
 
+// Empty call template to use for filling empty slots
+const emptyCall = {
+  name: "",
+  callNumber: 0,
+  date: "",
+  duration: "",
+  avatar: "/placeholder.svg",
+  scores: {
+    Engagement: 0,
+    "Objection Handling": 0,
+    "Information Gathering": 0,
+    "Program Explanation": 0,
+    "Closing Skills": 0,
+    Effectiveness: 0,
+  },
+  isEmpty: true
+}
+
 export default function CallAnalysisDashboard() {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: new Date(0),
@@ -193,22 +210,30 @@ export default function CallAnalysisDashboard() {
   const itemsPerPage = 5
 
   const filteredCalls = calls.filter((call) => isDateInRange(new Date(call.date), dateRange.from, dateRange.to))
-  const totalPages = Math.ceil(filteredCalls.length / itemsPerPage)
-  const paginatedCalls = filteredCalls.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const totalPages = Math.max(1, Math.ceil(filteredCalls.length / itemsPerPage))
+  
+  // Get the current page of calls
+  const currentPageCalls = filteredCalls.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  
+  // Only create paginated calls if we have records
+  const paginatedCalls = [...currentPageCalls]
+  while (paginatedCalls.length < itemsPerPage && filteredCalls.length > 0) {
+    paginatedCalls.push({ ...emptyCall })
+  }
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5]">
-      <div className="container mx-auto py-8 px-4">
-        <div className="bg-white rounded-[30px] shadow-xl border border-gray-200 p-8">
+    <div className="min-h-screen bg-[#ffffff]">
+      <div className="w-full">
+        <div className="bg-white p-8">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="flex items-center gap-2 text-3xl font-bold text-gray-900">
+          <div className="flex items-center justify-between mb-4">
+          <h1 className="flex items-center gap-2 text-[21px] font-bold text-gray-900">
               <img 
                 src="https://res.cloudinary.com/drkudvyog/image/upload/v1739457048/Call_records_icon_duha_xziw0t.png" 
-                alt="Charts" 
+                alt="Long Form Training Charts" 
                 className="w-8 h-8"
               /> 
-              Charts
+              Long Form Training Charts
             </h1>
             <DateRangePicker onChange={setDateRange} />
           </div>
@@ -220,40 +245,51 @@ export default function CallAnalysisDashboard() {
 
           {/* Call Records */}
           <div className="mt-8">
-            <h2 className="mb-6 flex items-center gap-2 text-3xl font-bold text-gray-900">
+          <h2 className="mb-6 flex items-center gap-2 text-[21px] font-bold text-gray-900">
               <img 
                 src="https://res.cloudinary.com/drkudvyog/image/upload/v1739457048/Call_Records_duha_axwqva.png" 
-                alt="Call Records" 
+                alt="Long Form Training Call Records" 
                 className="w-8 h-8"
               /> 
-              Call Records
+              Long Form Training Call Records
             </h2>
 
-            {filteredCalls.length > 0 ? (
-              <div>
+            <div>
+              {/* Show call records if we have any */}
+              {filteredCalls.length > 0 ? (
                 <div className="space-y-6">
-                  {paginatedCalls.map((call) => (
-                    <CallRecord
-                      key={call.callNumber}
-                      name={call.name}
-                      callNumber={call.callNumber}
-                      date={call.date}
-                      duration={call.duration}
-                      avatar={call.avatar}
-                      scores={call.scores}
-                    />
+                  {paginatedCalls.map((call, index) => (
+                    <div key={call.callNumber || `empty-${index}`} className="relative">
+                      <CallRecord
+                        name={call.name}
+                        callNumber={call.callNumber}
+                        date={call.date}
+                        duration={call.duration}
+                        avatar={call.avatar}
+                        scores={call.scores}
+                        isEmpty={call.isEmpty}
+                      />
+                      {/* Overlay for empty call records to make them non-clickable */}
+                      {call.isEmpty && (
+                        <div 
+                          className="absolute inset-0 bg-transparent cursor-not-allowed" 
+                          aria-label="Empty call record"
+                        />
+                      )}
+                    </div>
                   ))}
                 </div>
+              ) : (
+                /* No call records message with border */
+                <div className="w-full border border-solid py-4 px-6 text-center text-gray-500 rounded-md" style={{ borderColor: "#ddd" }}>
+                  No call records found for the selected date range.
+                </div>
+              )}
 
-                {/* Pagination Controls */}
-                <div className="mt-8 flex items-center justify-between border-t border-gray-200 pt-4">
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm text-gray-700">
-                      Displaying calls {(currentPage - 1) * itemsPerPage + 1} -{" "}
-                      {Math.min(currentPage * itemsPerPage, filteredCalls.length)} of {filteredCalls.length}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
+              {/* Pagination Controls - only show if we have actual calls */}
+              {filteredCalls.length > 0 && (
+                <div className="mt-8 flex flex-col items-center justify-center border-t border-gray-200 pt-4">
+                  <div className="flex items-center gap-2 mb-2">
                     <Button
                       variant="outline"
                       size="sm"
@@ -286,11 +322,15 @@ export default function CallAnalysisDashboard() {
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-700">
+                      Displaying calls {filteredCalls.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0} -{" "}
+                      {Math.min(currentPage * itemsPerPage, filteredCalls.length)} of {filteredCalls.length}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <EmptyState />
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
