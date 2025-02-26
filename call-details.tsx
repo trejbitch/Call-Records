@@ -8,7 +8,7 @@ src/components/ui/call-details.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Sparkles } from "lucide-react"
+import { Sparkles, Headphones } from "lucide-react"
 import { useState, useEffect } from "react"
 import { LanguageAnalysis } from "./language-analysis"
 import { KeyMoments } from "./key-moments"
@@ -30,14 +30,14 @@ export function CallDetails() {
       <h2 className="text-xl font-bold text-[#5b06be] mb-2">Call Details</h2>
 
       {/* Key Moments Card */}
-      <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
+      <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
         <KeyMoments />
       </Card>
 
       {/* Call Notes and Manager's Feedback */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Call Notes Card */}
-        <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300 h-[280px]">
+        <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300 h-[280px]">
           <CardHeader className="pb-2 bg-white">
             <CardTitle className="text-base font-bold text-[#5b06be]">Call Notes</CardTitle>
           </CardHeader>
@@ -62,7 +62,7 @@ export function CallDetails() {
         </Card>
 
         {/* Manager's Feedback Card */}
-        <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300 h-[280px]">
+        <Card className="!shadow-none border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300 h-[280px]">
           <CardHeader className="pb-2 bg-white">
             <CardTitle className="text-base font-bold text-[#5b06be]">Manager's Feedback</CardTitle>
           </CardHeader>
@@ -90,7 +90,7 @@ export function CallDetails() {
       </div>
 
       {/* Call Recording Card */}
-      <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
+      <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-bold text-[#5b06be]">Call Recording</CardTitle>
         </CardHeader>
@@ -100,7 +100,7 @@ export function CallDetails() {
       </Card>
 
       {/* Call Transcript Card */}
-      <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
+      <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-bold text-[#5b06be]">Call Transcript</CardTitle>
         </CardHeader>
@@ -110,30 +110,15 @@ export function CallDetails() {
       </Card>
 
       {/* Language Analysis Card */}
-      <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
+      <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
         <LanguageAnalysis />
       </Card>
 
       {/* Listening Skills Card */}
-      <Card className="border-none shadow-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
+      <Card className="border border-[#dddddd] relative z-10 rounded-[20px] overflow-hidden transition-all duration-300">
         <CardHeader className="pb-2 bg-white">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-bold text-[#5b06be] flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[#5b06be]"
-              >
-                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-              </svg>
+            <CardTitle className="text-base font-bold text-[#5b06be]">
               Listening Skills
             </CardTitle>
             <div className="flex items-center gap-2 bg-white px-3 py-1 rounded-full shadow-sm">
@@ -145,9 +130,9 @@ export function CallDetails() {
         <CardContent className="pt-2 px-6 pb-6">
           <div className="space-y-6">
             {/* Analysis */}
-            <div className="bg-white p-5 rounded-[20px] shadow-md hover:shadow-lg transition-shadow duration-300">
-              <h3 className="text-lg font-bold text-[#5b06be] mb-3">Analysis</h3>
-              <p className="text-gray-700 leading-relaxed">
+            <div className="border border-[#dddddd] rounded-[20px] p-6">
+              <h4 className="text-[15px] font-bold text-[#5b06be] mb-3">Analysis</h4>
+              <p className="text-gray-700">
                 You did not fully address the homeowner's concerns about the property's market value. When the homeowner
                 mentioned recent renovations, you missed an opportunity to gather more detailed information about these
                 improvements. It's crucial to actively listen and ask follow-up questions to gain a comprehensive
@@ -156,8 +141,8 @@ export function CallDetails() {
             </div>
 
             {/* Key Listening Skills to Focus On */}
-            <div className="bg-[#f3f0ff] rounded-[20px] p-6 shadow-sm">
-              <h4 className="text-lg font-bold text-[#5b06be] mb-4">Key Listening Skills to Focus On</h4>
+            <div className="bg-[#f3f0ff] rounded-[20px] p-4 shadow-sm">
+              <h4 className="text-[15px] font-bold text-[#5b06be] mb-3">Key Listening Skills to Focus On</h4>
               <ul className="grid grid-cols-2 gap-4">
                 {["Active Listening", "Empathy", "Clarifying Questions", "Paraphrasing"].map((skill) => (
                   <li
