@@ -204,7 +204,7 @@ export function ChartCard({
 
   return (
     <div className={cn(
-      "bg-white rounded-[28px] p-6 shadow-lg relative z-10 transition-all duration-300 hover:shadow-xl h-[280px] overflow-hidden",
+      "bg-white rounded-[28px] p-6 border border-[#ddd] relative h-[280px] overflow-hidden",
       className
     )}>
       <div className="flex items-center justify-between mb-4">
@@ -217,7 +217,7 @@ export function ChartCard({
             variant="ghost"
             size="sm"
             onClick={() => setShowDetails(!showDetails)}
-            className="h-7 px-3 rounded-full text-gray-600 hover:bg-gray-50 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300"
+            className="h-7 px-3 rounded-full text-gray-600 hover:bg-gray-50 text-sm font-medium"
           >
             {showDetails ? "Back" : "Details"}
           </Button>
