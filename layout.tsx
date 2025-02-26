@@ -41,12 +41,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body style={{ background: 'white' }} className={`font-sans bg-white min-h-screen antialiased ${inter.variable}`}>
-        <Providers>
-          <div style={{ background: 'white' }} className="min-h-screen bg-white w-full">
-            {children}
-          </div>
-          <Toaster
+      <body style={{ background: 'white', margin: 0, padding: 0 }} className={`font-sans bg-white min-h-screen antialiased ${inter.variable} p-0 m-0`}>
+  <Providers>
+    <div style={{ background: 'white', margin: 0, padding: 0 }} className="min-h-screen bg-white w-full p-0 m-0">
+      {children}
+    </div>
+    <Toaster
             position="top-center"
             toastOptions={{
               style: {
