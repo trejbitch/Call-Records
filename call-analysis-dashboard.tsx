@@ -1,5 +1,4 @@
-src/components/call-analysis-dashboard.tsx
-
+src/components/ui/call-analysis-dashboard.tsx
 
 
 
