@@ -31,6 +31,7 @@ interface ChartCardProps {
   className?: string
 }
 
+// Function to get scores from data for a specific category or overall
 const getScoreFromData = (data: ChartCardProps["data"], title: string) => {
   return data
     .map((call) => {
@@ -130,7 +131,7 @@ export function ChartCard({
       y: rect.height - Math.pow(score / 100, 2) * (rect.height * 0.95),
     }))
 
-    const colors = getColorForScore(scores[scores.length - 1])
+    const colors = getColorForScore(score)
 
     const drawGraph = (progress: number) => {
       ctx.clearRect(0, 0, rect.width, rect.height)
@@ -200,7 +201,7 @@ export function ChartCard({
         }
       }
     }
-  }, [data, title, showDetails])
+  }, [data, title, showDetails, score])
 
   return (
     <div className={cn(
@@ -230,12 +231,10 @@ export function ChartCard({
             <div
               className="text-[48px] font-extrabold leading-none tracking-tight mb-2"
               style={{
-                color: getColorForScore(
-                  Math.round(getScoreFromData(data, title)[getScoreFromData(data, title).length - 1]),
-                ).line,
+                color: getColorForScore(score).line,
               }}
             >
-              {Math.round(getScoreFromData(data, title)[getScoreFromData(data, title).length - 1])}
+              {score}
               <span className="text-[32px] font-bold">/100</span>
             </div>
             <div className="text-[15px] font-semibold text-gray-600">Average Score</div>
