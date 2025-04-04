@@ -19,9 +19,10 @@ import { useState } from "react"
 
 interface DateRangePickerProps {
   onChange?: (range: { from: Date; to: Date }) => void
+  fromDate?: Date | null
 }
 
-export function DateRangePicker({ onChange }: DateRangePickerProps) {
+export function DateRangePicker({ onChange, fromDate }: DateRangePickerProps) {
   const [month, setMonth] = React.useState(new Date())
   const [selectedRange, setSelectedRange] = React.useState<{ from: Date; to: Date | null }>({
     from: new Date(),
@@ -64,7 +65,8 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
   }
 
   const handleAllTime = () => {
-    const range = { from: new Date(0), to: new Date() }
+    const minDate = fromDate || new Date(0);
+    const range = { from: minDate, to: new Date() }
     setSelectedRange({ from: range.from, to: range.to })
     setIsAllTime(true)
     onChange?.(range)
@@ -107,6 +109,22 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
     const end = selectedRange.from < hoverDate ? hoverDate : selectedRange.from
     return date >= start && date <= end
   }
+
+  const isDateDisabled = (date: Date | null): boolean => {
+    if (!date) return true;
+    
+    if (fromDate) {
+      const dateToCheck = new Date(date);
+      dateToCheck.setHours(0, 0, 0, 0);
+      
+      const minDate = new Date(fromDate);
+      minDate.setHours(0, 0, 0, 0);
+      
+      return dateToCheck < minDate;
+    }
+    
+    return false;
+  };
 
   return (
     <Popover>
@@ -162,12 +180,21 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
                       className={cn(
                         "h-8 w-8 p-0 font-medium rounded-[12px] hover:bg-gray-100",
                         !date && "invisible",
-                        isSelected(date) && "bg-[#5b06be] text-white hover:bg-[#5b06be] hover:text-white",
-                        (isInRange(date) || isInHoverRange(date)) && "bg-[#f3f0ff]"
+                        date && isSelected(date) && "bg-[#5b06be] text-white hover:bg-[#5b06be] hover:text-white",
+                        date && (isInRange(date) || isInHoverRange(date)) && "bg-[#f3f0ff]",
+                        date && isDateDisabled(date) && "text-gray-300 hover:bg-white cursor-not-allowed"
                       )}
-                      disabled={!date}
-                      onClick={() => date && handleDateSelect(date)}
-                      onMouseEnter={() => date && setHoverDate(date)}
+                      disabled={!date || (date && isDateDisabled(date))}
+                      onClick={() => {
+                        if (date && !isDateDisabled(date)) {
+                          handleDateSelect(date);
+                        }
+                      }}
+                      onMouseEnter={() => {
+                        if (date && !isDateDisabled(date)) {
+                          setHoverDate(date);
+                        }
+                      }}
                       onMouseLeave={() => setHoverDate(null)}
                     >
                       {date?.getDate()}
