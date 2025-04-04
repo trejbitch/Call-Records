@@ -13,6 +13,7 @@ interface ScoreCardProps {
   title: string
   score: number
   total: number
+  description?: string // Add optional description prop
   hoverEffect?: string
   compact?: boolean
 }
@@ -51,17 +52,21 @@ const getScoreColors = (score: number) => {
   }
 }
 
+// Default descriptions as fallback
 const categoryDescriptions = {
   Engagement: "How well the agent engaged with the prospect during the call.",
-  "Objection Handling": "No objections were raised during the transcript, and there was no opportunity to address concerns.",
+  "Objection Handling": "How effectively the agent addressed concerns and objections raised by the prospect.",
   "Information Gathering": "How effectively the agent collected relevant information from the prospect.",
   "Program Explanation": "How well the agent explained the program details and benefits.",
   "Closing Skills": "The agent's ability to guide the conversation towards a positive outcome.",
   Effectiveness: "The overall effectiveness of the call in achieving its objectives.",
 }
 
-export function ScoreCard({ title, score, total, hoverEffect, compact }: ScoreCardProps) {
+export function ScoreCard({ title, score, total, description, hoverEffect, compact }: ScoreCardProps) {
   const colors = getScoreColors(score)
+  
+  // Use provided description or fall back to the default
+  const displayDescription = description || categoryDescriptions[title as keyof typeof categoryDescriptions] || "";
 
   return (
     <Popover>
@@ -101,8 +106,8 @@ export function ScoreCard({ title, score, total, hoverEffect, compact }: ScoreCa
         sideOffset={5}
       >
         <div className="space-y-2">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-          <p className="text-sm text-slate-600">{categoryDescriptions[title as keyof typeof categoryDescriptions]}</p>
+          <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
+          <p className="text-xs text-slate-600">{displayDescription}</p>
         </div>
       </PopoverContent>
     </Popover>
